@@ -1,0 +1,41 @@
+#!/bin/sh
+# Redirect output to stderr.
+exec 1>&2
+# enable user input
+exec < /dev/tty
+	
+RED='\033[0;31m'
+NC='\033[0m' # No Color
+
+consoleregexp='console.log'
+# CHECK
+if test $(git diff --cached | grep -i $consoleregexp | wc -l) != 0
+then 
+
+  # get the file names
+  files=$(git diff --cached | grep -ne '--- a' | cut -d: -f1)
+  
+
+  echo "\n${RED}Error:${NC} There are some console.log at your modification. \n"
+  echo "Inside the following files:"
+
+  # get file name from line number
+  for file in $files
+  do
+    echo $(git diff --cached | sed -n ${file}p  )
+  done
+
+  
+  echo "\nConsole.logs:"
+  exec git diff --cached |  grep -ne $consoleregexp 
+  echo "\n"
+  
+  read -p "You want to continue? (y/n)" yn
+  echo $yn | grep ^[Yy]$
+  if [ $? -eq 0 ] 
+  then
+    exit 0; #CONTINUE
+  else
+    exit 1; #ROLLBACK
+  fi
+fi

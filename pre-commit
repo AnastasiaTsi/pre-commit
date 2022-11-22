@@ -13,17 +13,17 @@ if test $(git diff --cached | grep -i $consoleregexp | wc -l) != 0
 then 
 
   # get the file names
-  files=$(git diff --cached | grep -ne '--- a' | cut -d: -f1)
+  # files=$(git diff --cached | grep -ne '--- a' | cut -d: -f1)
   
 
   echo "\n${RED}Error:${NC} There are some console.log at your modification. \n"
-  echo "Inside the following files:"
+  # echo "Inside the following files:"
 
   # get file name from line number
-  for file in $files
-  do
-    echo $(git diff --cached | sed -n ${file}p  )
-  done
+  # for file in $files
+  # do
+  #   echo $(git diff --cached | sed -n ${file}p  )
+  # done
 
   
   echo "\nConsole.logs:"

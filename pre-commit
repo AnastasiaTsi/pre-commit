@@ -13,7 +13,6 @@ if test $(git diff --cached | grep -i $consoleregexp | wc -l) != 0
 then 
 
   echo "\n${RED}Warning:${NC} There are some console.log at your modification. \n"
-
   
   echo "\nConsole.logs:"
   exec git diff --cached |  grep -ne $consoleregexp 

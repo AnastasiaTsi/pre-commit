@@ -16,7 +16,7 @@ then
   # files=$(git diff --cached | grep -ne '--- a' | cut -d: -f1)
   
 
-  echo "\n${RED}Error:${NC} There are some console.log at your modification. \n"
+  echo "\n${RED}Warning:${NC} There are some console.log at your modification. \n"
   # echo "Inside the following files:"
 
   # get file name from line number
